@@ -1,0 +1,6 @@
+framework module Pods_AME {
+  umbrella header "Pods-AME-umbrella.h"
+
+  export *
+  module * { export * }
+}
