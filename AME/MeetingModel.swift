@@ -16,31 +16,13 @@ class MeetingModel{
     
     var meeting_id: String?
     
-    var dateTime: NSDate {
-        get{
-            let secondsSince1970 =  meetingJSON?["dateTime"].int ?? 0
-            
-            return NSDate(timeIntervalSince1970: TimeInterval(exactly: secondsSince1970) ?? TimeInterval(exactly: 0)!)
-        }
-        set{
-            meetingJSON?["dateTime"] = JSON(Int(newValue.timeIntervalSince1970))
-        }
-    }
+    var timeDate: NSDate?
     
-    var meetingPicture: UIImage? {
-        get{
-            if let pictureString = meetingJSON?["pictureBits"].stringValue {
-                let pictureBits = Data(base64Encoded: pictureString)
-                let picture = UIImage(data: pictureBits!)
-                
-                return picture
-            }
-            return nil
-        }
-        set{
-            meetingJSON?["pictureBits"] = JSON(UIImagePNGRepresentation(newValue!)?.base64EncodedString(options: []) ?? "")
-        }
-    }
+    var meetingPicture: String?
+    
+    var depthPicture: String?
+    
+    var labeledMeetingPicture: String?
     
     var croppedPictures: [UIImage]{
         get{
@@ -66,55 +48,79 @@ class MeetingModel{
         return pics
     }
     
-    var attendanceDictionary: [String: Bool]{
-        get{
-            
-            let attendanceJSON = meetingJSON?["attendance"].dictionaryValue ?? [String: JSON]()
-            
-            var attendanceBool = [String : Bool]()
-            
-            for (student, present) in attendanceJSON {
-                attendanceBool.updateValue(present.bool ?? false, forKey: student)
-            }
-            
-            return attendanceBool
-        }
-    }
+    var attendanceDictionary: [String: Bool]?
     
     func getMeeting(completion: @escaping (_ result: Bool) -> Void) {
         
-        if let token = Keychain.token{
+        if let token = Keychain.token?.stringValue {
             if let meeting_id = meeting_id {
                 let parameters = ["token": token,
                                   "meeting_id": meeting_id] as [String : Any]
                 
-                Alamofire.request("\(URLConstants.Current))/secure-api/meeting", method: .get, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                Alamofire.request("\(URLConstants.Current)/secure-api/meeting", method: .get, parameters: parameters).responseJSON { response in
                     print("Success: \(response.result.isSuccess)")
                     if let message = response.result.value {
                         print(message)
+                        
                     }
+                    
+                    if response.result.isSuccess {
+                        let json = JSON(response.result.value!)
+                        let meetingJSON = json["package"]
+                        
+                        let secondsSince1970 =  meetingJSON["dateTime"].int ?? 0
+                        
+                        self.timeDate = NSDate(timeIntervalSince1970: TimeInterval(exactly: secondsSince1970) ?? TimeInterval(exactly: 0)!)
+                        
+                        self.meetingPicture = meetingJSON["meetingPicAttachment_id"].stringValue
+                        self.depthPicture = meetingJSON["depthPicAttachment_id"].stringValue
+                        self.labeledMeetingPicture = json["labeledMeetingPicAttachment_id"].stringValue
+                        
+                        let attendanceJSON = meetingJSON["attendance"].dictionaryValue
+                        
+                        var attendanceBool = [String : Bool]()
+                        
+                        for (student, present) in attendanceJSON {
+                            attendanceBool.updateValue(present.bool ?? false, forKey: student)
+                        }
+
+                        self.attendanceDictionary = attendanceBool
+                    }
+                    
+                    completion(response.result.isSuccess)
                 }
             }
         }
     }
     
-    func postMeeting(with section_id: String, pickedImage: UIImage) {
+    func postMeeting(with section_id: String) {
         
         print("almost there")
         
         if let token = Keychain.token?.stringValue {
+            
+            if let timeDate = self.timeDate, let meetingPic = self.meetingPicture, let depthPic = self.depthPicture {
+                let timeDateMilliseconds = Int64(timeDate.timeIntervalSince1970 * 1000)
+                
+                let meetingPicData = meetingPic
+                
+                let depthPicData = depthPic
                 
                 let parameters: [String: Any] = ["token": token,
-                                                 "meetingPic": UIImagePNGRepresentation(pickedImage)?.base64EncodedString(options: []) ?? "",
+                                                 "dateTime": timeDateMilliseconds,
+                                                 "meetingPic": meetingPicData,
+                                                 "depthPic": depthPicData,
                                                  "section_id": section_id]
                 
-                print("posting Meeting")
                 Alamofire.request("\(URLConstants.Current)/secure-api/meeting", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
                     print("Success: \(response.result.isSuccess)")
                     if let message = response.result.value {
                         print(message)
                     }
                 }
+            }
+            
+            
         }
     }
 }

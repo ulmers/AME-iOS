@@ -12,7 +12,9 @@ class NewStudentPopUpViewController: UIViewController, UIImagePickerControllerDe
     
     var imagePicker = UIImagePickerController()
     
-    var addStudentFunction: ((String, String, String, UIImage) -> Void)?
+    var section_id: String?
+    
+    let studentModel = StudentModel()
 
     @IBOutlet weak var firstNameTextField: UITextField!
     
@@ -25,21 +27,22 @@ class NewStudentPopUpViewController: UIViewController, UIImagePickerControllerDe
     @IBOutlet weak var studentPortraitButton: UIButton!
     
     @IBAction func touchStudentPortrait(_ sender: UIButton) {
-        imagePicker.sourceType = .savedPhotosAlbum;
         imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
         
         present(imagePicker, animated: true, completion: nil)
     }
     
-    @IBAction func touchAdd(_ sender: UIButton) {
-        if let asf = addStudentFunction {
-            asf(firstNameTextField.text!,
-                lastNameTextField.text!,
-                studentIDTextField.text!,
-                studentPortraitImageView.image!)
-        }
+    @IBAction func touchCreate(_ sender: UIBarButtonItem) {
         
-        dismiss(animated: true, completion: nil)
+        if let portrait = studentPortraitImageView.image, let section_id = self.section_id {
+            studentModel.firstName = firstNameTextField.text!
+            studentModel.lastName = lastNameTextField.text!
+            studentModel.studentID = studentIDTextField.text!
+            studentModel.postStudent(portrait, section_id: section_id)
+            
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     override func viewDidLoad() {
@@ -54,9 +57,10 @@ class NewStudentPopUpViewController: UIViewController, UIImagePickerControllerDe
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
         if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
             studentPortraitImageView.image = pickedImage
+            studentPortraitButton.titleLabel?.textColor = UIColor.clear
+            
+            dismiss(animated: true, completion: nil)
         }
-        
-        dismiss(animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {

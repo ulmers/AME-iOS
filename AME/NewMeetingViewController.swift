@@ -9,32 +9,32 @@
 import UIKit
 
 @available(iOS 11.0, *)
-class NewMeetingViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class NewMeetingViewController: UIViewController, UINavigationControllerDelegate {
     
     var meetingModel = MeetingModel()
     
     var section_id: String?
-
-    var imagePicker = UIImagePickerController()
+    
+    @IBOutlet weak var depthImageView: UIImageView!
+    @IBOutlet weak var imageView: UIImageView!
     
     @IBAction func touchCameraButton(_ sender: UIButton) {
-        imagePicker.sourceType = .camera
-        imagePicker.allowsEditing = false
-        
-        present(imagePicker, animated: true, completion: nil)
+        performSegue(withIdentifier: "showCamera", sender: self)
     }
     
     @IBAction func touchPhotoLibraryButton(_ sender: UIButton) {
-        imagePicker.sourceType = .savedPhotosAlbum;
-        imagePicker.allowsEditing = false
+        performSegue(withIdentifier: "showPhotoLibrary", sender: self)
+    }
+    @IBAction func touchCreate(_ sender: UIBarButtonItem) {
+        meetingModel.meetingPicture = UIImageJPEGRepresentation(imageView.image!, 1.0)?.base64EncodedString()
+        meetingModel.depthPicture = UIImageJPEGRepresentation(depthImageView.image!, 1.0)?.base64EncodedString()
+        meetingModel.timeDate = NSDate()
         
-        present(imagePicker, animated: true, completion: nil)
+        meetingModel.postMeeting(with: section_id!)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        imagePicker.delegate = self
 
         // Do any additional setup after loading the view.
     }
@@ -44,21 +44,13 @@ class NewMeetingViewController: UIViewController, UIImagePickerControllerDelegat
         // Dispose of any resources that can be recreated.
     }
     
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {
-        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-            let dateTime = NSDate()
-            //meetingModel.meetingPicture = pickedImage
-            
-            let rotatedImage = UIImage(ciImage: (pickedImage.ciImage?.oriented(.right))!)
-            
-            meetingModel.meetingPicture = rotatedImage
-            meetingModel.dateTime = dateTime
-                meetingModel.postMeeting(with: "", pickedImage: rotatedImage)
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destVC = segue.destination as? CameraViewController {
+            destVC.parentVC = self
+        } else if let destVC = segue.destination as? PhotoLibraryViewController {
+            destVC.parentVC = self
         }
-        
-        dismiss(animated: true, completion: nil)
     }
-    
 
     /*
     // MARK: - Navigation

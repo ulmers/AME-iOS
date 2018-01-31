@@ -1,57 +1,43 @@
 //
-//  MeetingTableViewController.swift
+//  SectionTableViewController.swift
 //  AME
 //
-//  Created by Stephen Ulmer on 9/20/17.
+//  Created by Stephen Ulmer on 11/3/17.
 //  Copyright © 2017 Stephen Ulmer. All rights reserved.
 //
 
 import UIKit
 
 @available(iOS 11.0, *)
-class MeetingTableViewController: UITableViewController {
+class SectionTableViewController: UITableViewController {
     
-    var sectionModel: SectionModel?{
-        get{
-            if let nav = self.navigationController {
-                if let par = nav.parent as? SectionTabBarViewController {
-                    return par.sectionModel
-                }
-            }
-            return nil
-        }
+    var instructorModel = InstructorModel()
+    
+    @IBAction func touchNewSection(_ sender: UIBarButtonItem) {
+        newSection()
     }
     
-    var selectedIndexPath: IndexPath?
-    
-    @IBAction func touchNewMeeting(_ sender: UIBarButtonItem) {
-        newMeeting()
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
+        self.refreshControl?.addTarget(self, action: #selector(getInstructor), for: UIControlEvents.valueChanged)
         
-        self.title = "Meetings"
-
+        getInstructor()
+        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
+        
+        //self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(logout))
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
         
+        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
+        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let dvc = segue.destination as? NewMeetingViewController{
-            dvc.section_id = sectionModel!.section_id!
-        } else if let destVC = segue.destination as? MeetingDetailsViewController, let indexPath = selectedIndexPath {
-            destVC.meetingModel.meeting_id = sectionModel?.meetings[indexPath.row]._id
-        }
-    }
-    
-    @objc func refresh(){
-        if let par = self.presentingViewController as? SectionTabBarViewController {
-            par.reloadModel()
-        }
+    @objc func getInstructor(){
+        instructorModel.getInstructor(completion: endRefreshIf)
     }
     
     func endRefreshIf(successful: Bool){
@@ -64,39 +50,55 @@ class MeetingTableViewController: UITableViewController {
         }
     }
     
-    @objc func newMeeting(){
-        performSegue(withIdentifier: "showNewMeeting", sender: self)
+    @objc func newSection(){
+        performSegue(withIdentifier: "showNewSection", sender: self)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return sectionModel?.meetings.count ?? 0
+        return instructorModel.sections.count
     }
-
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "reuseIdentifier")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
         
-        cell.textLabel?.text = sectionModel?.meetings[indexPath.row].dateTime
+        cell.textLabel?.text = instructorModel.sections[indexPath.row].name
         
         return cell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        selectedIndexPath = indexPath
-        performSegue(withIdentifier: "showMeetingDetails", sender: self)
+        if let nav = self.navigationController {
+            print(nav.presentingViewController)
+            if let par = nav.presentingViewController as? SectionTabBarViewController {
+                par.sectionModel.section_id = instructorModel.sections[indexPath.row]._id
+                par.loadSection(with: instructorModel.sections[indexPath.row]._id)
+            }
+        }
+        dismiss(animated: true, completion: nil)
     }
+
+    /*
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+
+        // Configure the cell...
+
+        return cell
+    }
+    */
 
     /*
     // Override to support conditional editing of the table view.

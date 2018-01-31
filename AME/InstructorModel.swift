@@ -12,60 +12,39 @@ import SwiftyJSON
 
 class InstructorModel {
     
-    var instructorJSON: JSON?{
-        didSet{
-            if let json = instructorJSON {
-                print("instructor: \(json)")
-            }
-        }
-    }
+    var firstName: String?
     
-    var firstName: String{
-        get{
-            return instructorJSON?["firstName"].string ?? ""
-        }
-    }
+    var lastName: String?
     
-    var lastName: String{
-        get{
-            return instructorJSON?["lastName"].string ?? ""
-        }
-    }
-    
-    var facultyId: String{
-        get{
-            return instructorJSON?["facultyId"].string ?? ""
-        }
-    }
+    var facultyID: String?
     
     struct Section{
         var name = ""
         var _id = ""
     }
     
-    var sections: [Section]{
-        get{
-            var sectionsValue = [Section]()
-            
-            if let instructor = instructorJSON {
-                for section in instructor["sections"].arrayValue {
-                    sectionsValue.append(Section(name: section["name"].stringValue, _id: section["_id"].stringValue))
-                }
-            }
-            
-            return sectionsValue
-        }
-    }
+    var sections = [Section]()
     
     func getInstructor(completion: @escaping ((Bool) -> Void)) {
         
         if let token = Keychain.token?.stringValue {
-            let parameters = ["username": Keychain.username!, "token": Keychain.token!.stringValue] as! [String : String]
+            let parameters = ["username": Keychain.username!, "token": token] as! [String : String]
             
             Alamofire.request("\(URLConstants.Current)/secure-api/instructor", method: .get, parameters: parameters).responseJSON { response in
                 if response.result.isSuccess {
                     let json = JSON(response.data)
-                    self.instructorJSON = json["package"]
+                    let instructorJSON = json["package"]
+                    self.firstName = instructorJSON["firstName"].string
+                    self.lastName = instructorJSON["lastName"].string
+                    self.facultyID = instructorJSON["facultyId"].string
+                    
+                    var sectionsValue = [Section]()
+                    
+                    for section in instructorJSON["sections"].arrayValue {
+                        sectionsValue.append(Section(name: section["name"].stringValue, _id: section["_id"].stringValue))
+                    }
+                    
+                    self.sections = sectionsValue
                 }
                 
                 completion(response.result.isSuccess)

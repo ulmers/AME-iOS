@@ -22,23 +22,9 @@ class SectionModel {
     
     var section_id: String?
     
-    var sectionId: String {
-        get{
-            return sectionJSON?["sectionId"].string ?? ""
-        }
-        set{
-            sectionJSON?["sectionId"] = JSON(newValue);
-        }
-    }
+    var sectionID: String?
     
-    var courseName: String {
-        get{
-            return sectionJSON?["courseName"].string ?? ""
-        }
-        set{
-            sectionJSON?["courseName"] = JSON(newValue);
-        }
-    }
+    var courseName: String?
     
     struct Student{
         var name = ""
@@ -46,46 +32,17 @@ class SectionModel {
         var _id = ""
     }
     
-    var students: [Student] {
-        get{
-            var studentsValue = [Student]()
-            
-            if let section = sectionJSON {
-                for student in section["students"].arrayValue {
-                    studentsValue.append(Student(name: student["name"].stringValue,
-                                                 studentID: student["studentID"].stringValue,
-                                                 _id: student["_id"].stringValue))
-                }
-            }
-            return studentsValue
-        }
-        set{
-            sectionJSON?["students"] = JSON(newValue);
-        }
-    }
+    var students = [Student]()
     
     struct Meeting{
         var dateTime = ""
         var _id = ""
     }
     
-    var meetings: [Meeting] {
-        get{
-            var meetingsValue = [Meeting]()
-            
-            if let section = sectionJSON {
-                for meeting in section["meetings"].arrayValue {
-                    meetingsValue.append(Meeting(dateTime: meeting["dateTime"].stringValue, _id: meeting["_id"].stringValue))
-                }
-            }
-            return meetingsValue
-        }
-        set{
-            sectionJSON?["meetings"] = JSON(newValue);
-        }
-    }
+    var meetings = [Meeting]()
     
     func getSection(completion: @escaping (_ result: Bool) -> Void) {
+        
     
         let parameters = ["section_id": section_id!, "token": Keychain.token!.stringValue]
         
@@ -94,21 +51,55 @@ class SectionModel {
             
             if response.result.isSuccess {
                 let json = JSON(response.data)
-                self.sectionJSON = json["package"]
+                let sectionJSON = json["package"]
+                self.sectionID = sectionJSON["sectionID"].string
+                self.courseName = sectionJSON["courseName"].string
+                
+                var studentsValue = [Student]()
+                
+                for student in sectionJSON["students"].arrayValue {
+                    studentsValue.append(Student(name: student["name"].stringValue,
+                                                 studentID: student["studentID"].stringValue,
+                                                 _id: student["_id"].stringValue))
+                }
+                
+                self.students = studentsValue
+                
+                var meetingsValue = [Meeting]()
+                
+                
+                
+                for meeting in sectionJSON["meetings"].arrayValue {
+                    
+                    let formatter = DateFormatter()
+                    // initially set the format based on your datepicker date
+                    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                    
+                    let myStringafd = formatter.string(from: NSDate(timeIntervalSince1970: TimeInterval(integerLiteral: Int64(meeting["dateTime"].intValue/1000))) as Date)
+                    
+                    
+                    meetingsValue.append(Meeting(dateTime: myStringafd, _id: meeting["_id"].stringValue))
+                }
+                
+                self.meetings = meetingsValue
             }
             completion(response.result.isSuccess)
         }
     }
     
-    func postSection(courseName: String, sectionId: String, studentsJSON: String, completion: @escaping (_ result: Bool) -> Void) {
+    func postSection(completion: @escaping (_ result: Bool) -> Void) {
         
         if let token = Keychain.token?.stringValue {
-            let parameters = ["courseName": courseName, "sectionID": sectionId,"students": studentsJSON, "token": token]
             
-            Alamofire.request("\(URLConstants.Current)/secure-api/section", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
-                print("Success: \(response.result.isSuccess)")
-                if let message = response.result.value {
-                    print(message)
+            if let courseName = self.courseName, let sectionID = self.sectionID {
+                let parameters = ["courseName": courseName, "sectionID": sectionID, "token": token]
+                
+                Alamofire.request("\(URLConstants.Current)/secure-api/section", method: .post, parameters: parameters, encoding: JSONEncoding.default).responseJSON { response in
+                    print("Success: \(response.result.isSuccess)")
+                    if let message = response.result.value {
+                        print(message)
+                    }
+                    completion(response.result.isSuccess)
                 }
             }
         }

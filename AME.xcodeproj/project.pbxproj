@@ -11,6 +11,9 @@
 		6E17D99F1F72BB2B007967B6 /* StudentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E17D99E1F72BB2B007967B6 /* StudentModel.swift */; };
 		6E17D9A11F7359EC007967B6 /* StudentTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E17D9A01F7359EC007967B6 /* StudentTableViewController.swift */; };
 		6E17D9A31F7359FD007967B6 /* MeetingTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E17D9A21F7359FD007967B6 /* MeetingTableViewController.swift */; };
+		6E1E87391FCDDA16005C2217 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1E87381FCDDA16005C2217 /* CameraViewController.swift */; };
+		6E1E873B1FCDDA37005C2217 /* PhotoLibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1E873A1FCDDA37005C2217 /* PhotoLibraryViewController.swift */; };
+		6E250F691FCF388300CC2EF0 /* AttachmentModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E250F681FCF388300CC2EF0 /* AttachmentModel.swift */; };
 		6E31F4F31EF9B12000A373A1 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31F4F21EF9B12000A373A1 /* RegisterModel.swift */; };
 		6E31F4F51EF9CB8400A373A1 /* InstructorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E31F4F41EF9CB8400A373A1 /* InstructorModel.swift */; };
 		6E3855AF1F21B40500B9B19F /* LoginModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E3855AE1F21B40500B9B19F /* LoginModel.swift */; };
@@ -19,14 +22,15 @@
 		6E5170091F07FD590069A662 /* SectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5170081F07FD590069A662 /* SectionModel.swift */; };
 		6E51700B1F0AAB4A0069A662 /* MeetingModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E51700A1F0AAB4A0069A662 /* MeetingModel.swift */; };
 		6E51700D1F1915DA0069A662 /* SectionTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E51700C1F1915DA0069A662 /* SectionTabBarViewController.swift */; };
+		6E5FC8881FACDDCB002E46A5 /* SectionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E5FC8871FACDDCB002E46A5 /* SectionTableViewController.swift */; };
 		6E6414AD1F97E4F9000802E1 /* StudentDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6414AC1F97E4F9000802E1 /* StudentDetailsViewController.swift */; };
 		6E6414AF1F97E507000802E1 /* MeetingDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6414AE1F97E507000802E1 /* MeetingDetailsViewController.swift */; };
 		6E6FF3DE1EE6FBAA00283383 /* InstructorTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E6FF3DD1EE6FBAA00283383 /* InstructorTableViewController.swift */; };
-		6E8141AE1F4B3F90005F664C /* Add User Male Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A51F4B3F90005F664C /* Add User Male Filled-50.png */; };
-		6E8141AF1F4B3F90005F664C /* User Groups Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A61F4B3F90005F664C /* User Groups Filled-50.png */; };
+		6E8141AE1F4B3F90005F664C /* Add User Male Filled-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A51F4B3F90005F664C /* Add User Male Filled-50@2x.png */; };
+		6E8141AF1F4B3F90005F664C /* User Groups Filled-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A61F4B3F90005F664C /* User Groups Filled-50@2x.png */; };
 		6E8141B01F4B3F90005F664C /* Checkmark Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A71F4B3F90005F664C /* Checkmark Filled-50.png */; };
-		6E8141B11F4B3F90005F664C /* Contacts Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A81F4B3F90005F664C /* Contacts Filled-50.png */; };
-		6E8141B21F4B3F90005F664C /* Plus Math-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A91F4B3F90005F664C /* Plus Math-50.png */; };
+		6E8141B11F4B3F90005F664C /* Contacts Filled-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A81F4B3F90005F664C /* Contacts Filled-50@2x.png */; };
+		6E8141B21F4B3F90005F664C /* Plus Math-50@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141A91F4B3F90005F664C /* Plus Math-50@2x.png */; };
 		6E8141B31F4B3F90005F664C /* Menu Filled-50.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141AA1F4B3F90005F664C /* Menu Filled-50.png */; };
 		6E8141B41F4B3F90005F664C /* Add List-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141AB1F4B3F90005F664C /* Add List-48.png */; };
 		6E8141B51F4B3F90005F664C /* Camera-48.png in Resources */ = {isa = PBXBuildFile; fileRef = 6E8141AC1F4B3F90005F664C /* Camera-48.png */; };
@@ -48,6 +52,9 @@
 		6E17D99E1F72BB2B007967B6 /* StudentModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentModel.swift; sourceTree = "<group>"; };
 		6E17D9A01F7359EC007967B6 /* StudentTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentTableViewController.swift; sourceTree = "<group>"; };
 		6E17D9A21F7359FD007967B6 /* MeetingTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingTableViewController.swift; sourceTree = "<group>"; };
+		6E1E87381FCDDA16005C2217 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		6E1E873A1FCDDA37005C2217 /* PhotoLibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoLibraryViewController.swift; sourceTree = "<group>"; };
+		6E250F681FCF388300CC2EF0 /* AttachmentModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttachmentModel.swift; sourceTree = "<group>"; };
 		6E31F4F21EF9B12000A373A1 /* RegisterModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
 		6E31F4F41EF9CB8400A373A1 /* InstructorModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructorModel.swift; sourceTree = "<group>"; };
 		6E3855AE1F21B40500B9B19F /* LoginModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginModel.swift; sourceTree = "<group>"; };
@@ -56,14 +63,15 @@
 		6E5170081F07FD590069A662 /* SectionModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionModel.swift; sourceTree = "<group>"; };
 		6E51700A1F0AAB4A0069A662 /* MeetingModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MeetingModel.swift; sourceTree = "<group>"; };
 		6E51700C1F1915DA0069A662 /* SectionTabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionTabBarViewController.swift; sourceTree = "<group>"; };
+		6E5FC8871FACDDCB002E46A5 /* SectionTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionTableViewController.swift; sourceTree = "<group>"; };
 		6E6414AC1F97E4F9000802E1 /* StudentDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentDetailsViewController.swift; sourceTree = "<group>"; };
 		6E6414AE1F97E507000802E1 /* MeetingDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeetingDetailsViewController.swift; sourceTree = "<group>"; };
 		6E6FF3DD1EE6FBAA00283383 /* InstructorTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InstructorTableViewController.swift; sourceTree = "<group>"; };
-		6E8141A51F4B3F90005F664C /* Add User Male Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Add User Male Filled-50.png"; path = "../../../Downloads/Icons/Add User Male Filled-50.png"; sourceTree = "<group>"; };
-		6E8141A61F4B3F90005F664C /* User Groups Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "User Groups Filled-50.png"; path = "../../../Downloads/Icons/User Groups Filled-50.png"; sourceTree = "<group>"; };
+		6E8141A51F4B3F90005F664C /* Add User Male Filled-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Add User Male Filled-50@2x.png"; path = "../../../Downloads/Icons/Add User Male Filled-50@2x.png"; sourceTree = "<group>"; };
+		6E8141A61F4B3F90005F664C /* User Groups Filled-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "User Groups Filled-50@2x.png"; path = "../../../Downloads/Icons/User Groups Filled-50@2x.png"; sourceTree = "<group>"; };
 		6E8141A71F4B3F90005F664C /* Checkmark Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Checkmark Filled-50.png"; path = "../../../Downloads/Icons/Checkmark Filled-50.png"; sourceTree = "<group>"; };
-		6E8141A81F4B3F90005F664C /* Contacts Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Contacts Filled-50.png"; path = "../../../Downloads/Icons/Contacts Filled-50.png"; sourceTree = "<group>"; };
-		6E8141A91F4B3F90005F664C /* Plus Math-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Plus Math-50.png"; path = "../../../Downloads/Icons/Plus Math-50.png"; sourceTree = "<group>"; };
+		6E8141A81F4B3F90005F664C /* Contacts Filled-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Contacts Filled-50@2x.png"; path = "../../../Downloads/Icons/Contacts Filled-50@2x.png"; sourceTree = "<group>"; };
+		6E8141A91F4B3F90005F664C /* Plus Math-50@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Plus Math-50@2x.png"; path = "../../../Downloads/Icons/Plus Math-50@2x.png"; sourceTree = "<group>"; };
 		6E8141AA1F4B3F90005F664C /* Menu Filled-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Menu Filled-50.png"; path = "../../../Downloads/Icons/Menu Filled-50.png"; sourceTree = "<group>"; };
 		6E8141AB1F4B3F90005F664C /* Add List-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Add List-48.png"; path = "../../../Downloads/Icons/Add List-48.png"; sourceTree = "<group>"; };
 		6E8141AC1F4B3F90005F664C /* Camera-48.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Camera-48.png"; path = "../../../Downloads/Icons/Camera-48.png"; sourceTree = "<group>"; };
@@ -94,6 +102,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6E1E873D1FCDDA71005C2217 /* Meeting */ = {
+			isa = PBXGroup;
+			children = (
+				6E17D9A21F7359FD007967B6 /* MeetingTableViewController.swift */,
+				6E9A719F1F754BAE000A9DA2 /* NewMeetingViewController.swift */,
+				6E6414AE1F97E507000802E1 /* MeetingDetailsViewController.swift */,
+				6E1E87381FCDDA16005C2217 /* CameraViewController.swift */,
+				6E1E873A1FCDDA37005C2217 /* PhotoLibraryViewController.swift */,
+			);
+			name = Meeting;
+			sourceTree = "<group>";
+		};
+		6E1E873E1FCDDA7D005C2217 /* Student */ = {
+			isa = PBXGroup;
+			children = (
+				6E0924261F620D830004D500 /* NewStudentPopUpViewController.swift */,
+				6E17D9A01F7359EC007967B6 /* StudentTableViewController.swift */,
+				6E6414AC1F97E4F9000802E1 /* StudentDetailsViewController.swift */,
+			);
+			name = Student;
+			sourceTree = "<group>";
+		};
 		6E3855AB1F21AB8900B9B19F /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -101,13 +131,10 @@
 				6EB8F10D1EE24ABD0042BA64 /* RegisterViewController.swift */,
 				6E51700C1F1915DA0069A662 /* SectionTabBarViewController.swift */,
 				6E6FF3DD1EE6FBAA00283383 /* InstructorTableViewController.swift */,
+				6E5FC8871FACDDCB002E46A5 /* SectionTableViewController.swift */,
 				6ED057A21F44D5CE00BF9C2C /* NewSectionViewController.swift */,
-				6E0924261F620D830004D500 /* NewStudentPopUpViewController.swift */,
-				6E17D9A01F7359EC007967B6 /* StudentTableViewController.swift */,
-				6E17D9A21F7359FD007967B6 /* MeetingTableViewController.swift */,
-				6E9A719F1F754BAE000A9DA2 /* NewMeetingViewController.swift */,
-				6E6414AC1F97E4F9000802E1 /* StudentDetailsViewController.swift */,
-				6E6414AE1F97E507000802E1 /* MeetingDetailsViewController.swift */,
+				6E1E873E1FCDDA7D005C2217 /* Student */,
+				6E1E873D1FCDDA71005C2217 /* Meeting */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -121,6 +148,7 @@
 				6E51700A1F0AAB4A0069A662 /* MeetingModel.swift */,
 				6E3855AE1F21B40500B9B19F /* LoginModel.swift */,
 				6E17D99E1F72BB2B007967B6 /* StudentModel.swift */,
+				6E250F681FCF388300CC2EF0 /* AttachmentModel.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -128,11 +156,11 @@
 		6E8141B71F4B3FB9005F664C /* Icons */ = {
 			isa = PBXGroup;
 			children = (
-				6E8141A51F4B3F90005F664C /* Add User Male Filled-50.png */,
-				6E8141A61F4B3F90005F664C /* User Groups Filled-50.png */,
+				6E8141A51F4B3F90005F664C /* Add User Male Filled-50@2x.png */,
+				6E8141A61F4B3F90005F664C /* User Groups Filled-50@2x.png */,
 				6E8141A71F4B3F90005F664C /* Checkmark Filled-50.png */,
-				6E8141A81F4B3F90005F664C /* Contacts Filled-50.png */,
-				6E8141A91F4B3F90005F664C /* Plus Math-50.png */,
+				6E8141A81F4B3F90005F664C /* Contacts Filled-50@2x.png */,
+				6E8141A91F4B3F90005F664C /* Plus Math-50@2x.png */,
 				6E8141AA1F4B3F90005F664C /* Menu Filled-50.png */,
 				6E8141AB1F4B3F90005F664C /* Add List-48.png */,
 				6E8141AC1F4B3F90005F664C /* Camera-48.png */,
@@ -223,7 +251,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = "Stephen Ulmer";
 				TargetAttributes = {
 					6EE5B0421EE1F8EC000759D0 = {
@@ -262,13 +290,13 @@
 				6E8141B01F4B3F90005F664C /* Checkmark Filled-50.png in Resources */,
 				6E8141B31F4B3F90005F664C /* Menu Filled-50.png in Resources */,
 				6E8141B51F4B3F90005F664C /* Camera-48.png in Resources */,
-				6E8141B11F4B3F90005F664C /* Contacts Filled-50.png in Resources */,
+				6E8141B11F4B3F90005F664C /* Contacts Filled-50@2x.png in Resources */,
 				6E8141B61F4B3F90005F664C /* More-26.png in Resources */,
-				6E8141B21F4B3F90005F664C /* Plus Math-50.png in Resources */,
+				6E8141B21F4B3F90005F664C /* Plus Math-50@2x.png in Resources */,
 				6EE5B0511EE1F8EC000759D0 /* Assets.xcassets in Resources */,
-				6E8141AF1F4B3F90005F664C /* User Groups Filled-50.png in Resources */,
+				6E8141AF1F4B3F90005F664C /* User Groups Filled-50@2x.png in Resources */,
 				6EE5B04C1EE1F8EC000759D0 /* Main.storyboard in Resources */,
-				6E8141AE1F4B3F90005F664C /* Add User Male Filled-50.png in Resources */,
+				6E8141AE1F4B3F90005F664C /* Add User Male Filled-50@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -330,13 +358,17 @@
 				6EB8F10F1EE24ABD0042BA64 /* RegisterViewController.swift in Sources */,
 				6E51700D1F1915DA0069A662 /* SectionTabBarViewController.swift in Sources */,
 				6E17D9A11F7359EC007967B6 /* StudentTableViewController.swift in Sources */,
+				6E1E873B1FCDDA37005C2217 /* PhotoLibraryViewController.swift in Sources */,
+				6E250F691FCF388300CC2EF0 /* AttachmentModel.swift in Sources */,
 				6E51700B1F0AAB4A0069A662 /* MeetingModel.swift in Sources */,
+				6E5FC8881FACDDCB002E46A5 /* SectionTableViewController.swift in Sources */,
 				6E17D9A31F7359FD007967B6 /* MeetingTableViewController.swift in Sources */,
 				6E9A71A01F754BAE000A9DA2 /* NewMeetingViewController.swift in Sources */,
 				6E31F4F31EF9B12000A373A1 /* RegisterModel.swift in Sources */,
 				6E5170091F07FD590069A662 /* SectionModel.swift in Sources */,
 				6E6414AD1F97E4F9000802E1 /* StudentDetailsViewController.swift in Sources */,
 				6E3855B11F21C69B00B9B19F /* Keychain.swift in Sources */,
+				6E1E87391FCDDA16005C2217 /* CameraViewController.swift in Sources */,
 				6E3855AF1F21B40500B9B19F /* LoginModel.swift in Sources */,
 				6EE5B0491EE1F8EC000759D0 /* LoginViewController.swift in Sources */,
 				6E6FF3DE1EE6FBAA00283383 /* InstructorTableViewController.swift in Sources */,

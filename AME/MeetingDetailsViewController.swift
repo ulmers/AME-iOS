@@ -9,12 +9,34 @@
 import UIKit
 
 class MeetingDetailsViewController: UIViewController {
-
+    
+    var meetingModel = MeetingModel()
+    
+    var labeledPicAttachmentModel = AttachmentModel()
+    
+    @IBOutlet weak var labeledImageView: UIImageView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        meetingModel.getMeeting(completion: complete)
 
         // Do any additional setup after loading the view.
     }
+    
+    func complete(success: Bool) {
+        if success {
+            labeledPicAttachmentModel.attachment_id = meetingModel.labeledMeetingPicture!
+            
+            labeledPicAttachmentModel.getAttachment(completion: setPicture, index: 0)
+        }
+    }
+    
+    func setPicture(index: Int, image: UIImage) {
+        labeledImageView.image = UIImage(cgImage: image.cgImage!, scale: 1.0, orientation: .left)
+    }
+    
+    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

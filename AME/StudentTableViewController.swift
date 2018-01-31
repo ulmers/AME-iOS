@@ -8,26 +8,32 @@
 
 import UIKit
 
+@available(iOS 11.0, *)
 class StudentTableViewController: UITableViewController {
     
-    var sectionModel = SectionModel(){
-        didSet{
-            DispatchQueue.main.async {
-                self.tableView.reloadData()
+    var sectionModel: SectionModel?{
+        get{
+            if let nav = self.navigationController {
+                if let par = nav.parent as? SectionTabBarViewController {
+                    return par.sectionModel
+                }
             }
+            return nil
         }
     }
     
-    var refreshFunction: (() -> Void)?
+    var selectedIndexPath: IndexPath?
 
+    @IBAction func touchNewStudent(_ sender: UIBarButtonItem) {
+        performSegue(withIdentifier: "showNewStudent", sender: self)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "reuseIdentifier")
         
         self.refreshControl?.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
-        
-        self.title = "Students"
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -37,11 +43,11 @@ class StudentTableViewController: UITableViewController {
     }
     
     @objc func refresh(){
-        if let refresh = refreshFunction {
-            refresh()
+        if let par = self.presentingViewController as? SectionTabBarViewController {
+            par.reloadModel()
         }
     }
-    
+
     func endRefreshIf(successful: Bool){
         if successful {
             self.refreshControl?.endRefreshing()
@@ -49,6 +55,14 @@ class StudentTableViewController: UITableViewController {
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
+        }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let destVC = segue.destination as? StudentDetailsViewController, let indexPath = selectedIndexPath{
+            destVC.studentModel.student_id = sectionModel?.students[indexPath.row]._id
+        } else if let destVC = segue.destination as? NewStudentPopUpViewController {
+            destVC.section_id = sectionModel?.section_id!
         }
     }
 
@@ -67,16 +81,22 @@ class StudentTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         
-        return sectionModel.students.count
+        return sectionModel?.students.count ?? 0
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "reuseIdentifier")
         
-        cell.textLabel?.text = sectionModel.students[indexPath.row].name
-        cell.detailTextLabel?.text = sectionModel.students[indexPath.row].studentID
+        cell.textLabel?.text = sectionModel?.students[indexPath.row].name
+        //cell.detailTextLabel?.textColor = UIColor(red: 0.0, green: 122.0/255.0, blue: 1.0, alpha: 1.0)
+        cell.detailTextLabel?.text = sectionModel?.students[indexPath.row].studentID
 
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        selectedIndexPath = indexPath
+        performSegue(withIdentifier: "showStudentDetails", sender: self)
     }
     
     /*

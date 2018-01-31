@@ -9,6 +9,7 @@
 import UIKit
 import SwiftyJSON
 
+@available(iOS 11.0, *)
 class InstructorTableViewController: UITableViewController {
     
     var instructorModel = InstructorModel()
